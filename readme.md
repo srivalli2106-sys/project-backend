@@ -1,66 +1,48 @@
 # 🌆 Digital Twin City Dashboard – Backend
 
-## 📌 Project Overview
+## 📌 Project Description
 
-The **Digital Twin City Dashboard Backend** is a Node.js + Express.js server that provides location-based smart city insights.
+The **Digital Twin City Dashboard Backend** is a Node.js and Express.js based web application that provides smart city information using external APIs and a database.
 
-This backend powers a dashboard where users enter a city name and receive:
+Users can enter a city name and view:
 
-* 🌡 Temperature
-* 🌦 Weather conditions
+* 🌡 Weather details
 * 🌫 Air Quality Index (AQI)
 * 🚦 Traffic information
-* 🗺 Map data support
-* 📰 City news updates
 * 🏛 City history and description
+* 📰 Latest city news
 * 🚨 Emergency alerts
 * 📊 Analytics data for charts
-* 🧾 Citizen complaint submission
-* 🔐 Secure login & signup authentication
+* 🗺 Map location coordinates
+* 🧾 Citizen complaints system
+* 📧 Complaint confirmation email
+* 💳 Premium report payment simulation
+* 🔐 Secure login and registration
 
-This project simulates a **Digital Twin City system** without real-time sensors or 3D rendering, making it suitable for academic implementation.
-
----
-
-# 🧠 System Architecture
-
-```
-Frontend Dashboard
-        ↓
-Node.js + Express Backend
-        ↓
-External APIs
-(OpenWeather, AQI, NewsAPI, Wikipedia)
-        ↓
-MongoDB Database
-(User accounts + complaints)
-```
+This project is developed as part of a **Web Technology Digital Assignment**.
 
 ---
 
-# 🚀 Features
+# 🧠 Technologies Used
 
-### Authentication
+Backend:
 
-* User Signup
-* User Login
-* Password encryption using bcrypt
-* JWT-based authentication
+* Node.js
+* Express.js
+* MongoDB
+* JWT Authentication
+* bcrypt (password hashing)
+* Axios (API requests)
+* Nodemailer (email sending)
+* dotenv
 
-### Smart City Modules
+External APIs:
 
-The backend provides APIs for:
-
-* Weather details
-* Air quality index
-* Traffic information
-* Pollution data
-* Emergency alerts
-* City history
-* News updates
-* Map integration support
-* Complaint submission system
-* Analytics-ready datasets
+* OpenWeather API
+* WAQI API
+* NewsAPI
+* Wikipedia API
+* Map coordinates API
 
 ---
 
@@ -79,7 +61,10 @@ project-backend
 │   ├── trafficController.js
 │   ├── cityController.js
 │   ├── newsController.js
-│   └── complaintController.js
+│   ├── complaintController.js
+│   ├── analyticsController.js
+│   ├── alertController.js
+│   └── paymentController.js
 │
 ├── middleware
 │   └── authMiddleware.js
@@ -95,10 +80,13 @@ project-backend
 │   ├── trafficRoutes.js
 │   ├── cityRoutes.js
 │   ├── newsRoutes.js
-│   └── complaintRoutes.js
+│   ├── complaintRoutes.js
+│   ├── analyticsRoutes.js
+│   ├── alertRoutes.js
+│   └── paymentRoutes.js
 │
 ├── services
-│   └── apiService.js
+│   └── emailService.js
 │
 ├── utils
 │   └── analyticsHelper.js
@@ -111,42 +99,31 @@ project-backend
 
 ---
 
-# ⚙️ Installation Guide
+# ⚙️ Installation Steps
 
-### Step 1: Clone Repository
-
-```
-git clone https://github.com/your-username/project-backend.git
-```
-
-### Step 2: Move into Project Directory
-
-```
-cd project-backend
-```
-
-### Step 3: Install Dependencies
+### Step 1: Install dependencies
 
 ```
 npm install
 ```
 
-### Step 4: Create Environment Variables
+### Step 2: Create `.env` file
 
-Create `.env` file:
+Example:
 
 ```
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_secret_key
+JWT_SECRET=secretkey
 
 WEATHER_API_KEY=your_key
 AQI_API_KEY=your_key
 NEWS_API_KEY=your_key
-TRAFFIC_API_KEY=your_key
+EMAIL_USER=your_email
+EMAIL_PASS=your_email_password
 ```
 
-### Step 5: Start Server
+### Step 3: Run server
 
 Development mode:
 
@@ -168,146 +145,105 @@ http://localhost:5000
 
 ---
 
-# 🔐 Authentication APIs
+# 🔐 Authentication Module
 
-### Register User
+### Signup
 
 ```
 POST /api/auth/signup
 ```
 
-Body:
+Registers new user.
 
-```
-{
-  "name": "User",
-  "email": "user@email.com",
-  "password": "123456"
-}
-```
-
----
-
-### Login User
+### Login
 
 ```
 POST /api/auth/login
 ```
 
-Returns JWT token for protected routes.
+Returns JWT token for authentication.
 
 ---
 
-# 🌦 Weather API
-
-Fetch temperature and weather conditions:
+# 🌦 Weather Module
 
 ```
-GET /api/weather?city=Hyderabad
+GET /api/weather?city=Delhi
 ```
 
 Returns:
 
-```
-temperature
-humidity
-windSpeed
-weatherCondition
-```
+* temperature
+* humidity
+* wind speed
+* weather condition
 
 ---
 
-# 🌫 Air Quality API
-
-Fetch AQI information:
+# 🌫 Air Quality Module
 
 ```
-GET /api/aqi?city=Hyderabad
+GET /api/aqi?city=Delhi
 ```
 
 Returns:
 
-```
-aqiLevel
-pollutionStatus
-pm25
-pm10
-```
+* AQI level
+* pollution status
+* PM2.5
+* PM10
 
 ---
 
-# 🚦 Traffic API
-
-Fetch congestion information:
+# 🚦 Traffic Monitoring Module
 
 ```
-GET /api/traffic?city=Hyderabad
+GET /api/traffic?city=Delhi
+```
+
+Returns simulated congestion data for dashboard visualization.
+
+---
+
+# 🏛 City Information Module
+
+```
+GET /api/city?city=Delhi
 ```
 
 Returns:
 
-```
-trafficLevel
-roadCondition
-congestionIndex
-```
-
----
-
-# 🏛 City Information API
-
-Fetch city overview and history:
-
-```
-GET /api/city?city=Hyderabad
-```
-
-Returns:
-
-```
-cityDescription
-population
-timezone
-country
-historySummary
-```
+* city description
+* population
+* timezone
+* country
+* history summary
 
 Data fetched using Wikipedia API.
 
 ---
 
-# 📰 News API
-
-Fetch latest city-related news:
+# 📰 News Module
 
 ```
-GET /api/news?city=Hyderabad
+GET /api/news?city=Delhi
 ```
 
-Returns:
-
-```
-headline
-source
-publishedDate
-url
-```
+Returns latest city-related news headlines.
 
 ---
 
-# 🚨 Emergency Alerts API
-
-Fetch safety alerts:
+# 🚨 Emergency Alerts Module
 
 ```
-GET /api/alerts?city=Hyderabad
+GET /api/alerts?city=Delhi
 ```
 
-Uses static JSON alerts dataset for academic simulation.
+Returns safety alerts using sample dataset.
 
 ---
 
-# 🧾 Citizen Complaint API
+# 🧾 Citizen Complaint Module
 
 Submit complaint:
 
@@ -315,103 +251,109 @@ Submit complaint:
 POST /api/complaints
 ```
 
-Example:
-
-```
-{
-  "title": "Water leakage",
-  "description": "Leakage near main road",
-  "city": "Hyderabad"
-}
-```
-
-Fetch complaints:
+View complaints:
 
 ```
 GET /api/complaints
 ```
 
-Stored inside MongoDB.
+Complaints stored in MongoDB database.
 
 ---
 
-# 📊 Analytics Data API
+# 📧 Email Notification Module
 
-Provides structured datasets for charts:
+After complaint submission:
+
+* confirmation email sent to user
+* implemented using Nodemailer
+
+---
+
+# 📊 Analytics Dashboard Module
 
 ```
-GET /api/analytics?city=Hyderabad
+GET /api/analytics?city=Delhi
 ```
 
-Used to generate:
+Returns structured data for charts:
 
 * temperature trends
 * AQI comparison
-* complaint statistics
-* pollution charts
-
-Frontend integrates Chart.js for visualization.
+* pollution statistics
+* complaint analytics
 
 ---
 
-# 🗺 Maps Integration Support
-
-Backend returns coordinates for map rendering:
+# 🗺 Map Location Module
 
 ```
-GET /api/location?city=Hyderabad
+GET /api/location?city=Delhi
 ```
 
-Frontend uses Google Maps or Leaflet to display map layers.
+Returns latitude and longitude for map visualization.
 
 ---
 
-# 🧰 Technologies Used
+# 💳 Payment Simulation Module
 
-Backend Framework:
+```
+POST /api/payment
+```
 
-* Node.js
-* Express.js
+Simulates payment for downloading premium city report.
+
+Used for academic demonstration.
+
+---
+
+# 🗄 Database Collections
+
+MongoDB stores:
+
+* Users
+* Complaints
+
+---
+
+# 🎯 Project Modules Summary
+
+The backend contains the following application modules:
+
+* Weather monitoring module
+* AQI monitoring module
+* Traffic monitoring module
+* City information module
+* News module
+* Emergency alerts module
+* Complaint management module
+* Email notification module
+* Analytics dashboard module
+* Map integration module
+* Payment simulation module
+
+---
+
+# 🌐 Hosting Recommendation
+
+Backend can be deployed using:
+
+* Render
+* Railway
+* Cyclic
 
 Database:
 
-* MongoDB
+* MongoDB Atlas
 
-Authentication:
+Frontend:
 
-* JWT
-* bcrypt
-
-External APIs:
-
-* OpenWeather API
-* WAQI API
-* NewsAPI
-* Wikipedia API
-
-Utilities:
-
-* dotenv
-* axios
-* mongoose
-
----
-
-# 📈 Future Enhancements
-
-Possible upgrades:
-
-* Role-based admin dashboard
-* Real-time alerts integration
-* IoT sensor simulation
-* Smart traffic prediction
-* Historical analytics storage
-* Live pollution heatmaps
+* Vercel
 
 ---
 
 # 👨‍💻 Project Purpose
 
-This backend simulates a **Digital Twin City Dashboard system** that provides centralized monitoring of urban indicators using API-based datasets.
+This backend simulates a **Digital Twin City Dashboard** that integrates multiple smart city services into a single platform.
 
-Designed as an academic smart-city analytics platform demonstrating integration of multiple real-world services into a unified dashboard environment.
+It demonstrates the use of modern web technologies like Node.js, Express.js, MongoDB, APIs, authentication, analytics, email service, and payment simulation for a Web Technology Digital Assignment project.
