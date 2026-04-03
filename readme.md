@@ -4,7 +4,7 @@
 
 The **Digital Twin City Dashboard Backend** is a Node.js and Express.js based web application that provides smart city information using external APIs and a database.
 
-Users can enter a city name and view:
+Users can enter a city name and view the essential data such as:
 
 * 🌡 Weather details
 * 🌫 Air Quality Index (AQI)
@@ -354,6 +354,6 @@ Frontend:
 
 # 👨‍💻 Project Purpose
 
-This backend simulates a **Digital Twin City Dashboard** that integrates multiple smart city services into a single platform.
+This backend simulates a **Digital Twin City Dashboard** that integrates multiple smart city services into a single platform to provide best insights about a city for a user.
 
 It demonstrates the use of modern web technologies like Node.js, Express.js, MongoDB, APIs, authentication, analytics, email service, and payment simulation for a Web Technology Digital Assignment project.
