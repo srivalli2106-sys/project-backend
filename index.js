@@ -24,6 +24,7 @@ app.use("/api/complaints", require("./routes/complaintRoutes"));
 app.use("/api/analytics", require("./routes/analyticsRoutes"));
 app.use("/api/alerts", require("./routes/alertRoutes"));
 app.use("/api/payment", require("./routes/paymentRoutes"));
+app.use("/api/dashboard", require("./routes/dashboardRoutes"));
 
 // Root route
 app.get("/", (req, res) => {
